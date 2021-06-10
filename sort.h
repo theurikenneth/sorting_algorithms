@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 #define INCREMENT 1
-#define DECREMENT - 1
+#define DECREMENT -1
 
 /**
  * struct listint_c - Doubly linked list node
