@@ -10,44 +10,30 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-bool flag = false;
-listint_t *tmp = NULL, *aux = NULL;
+listint_t *current, *swap, *prv;
 
-if (!list || !(*list) || !(*list)->next)
+if (!list || !*list)
 return;
 
-tmp = *list;
-while (tmp->next)
+current = *list;
+while ((current = current->next))
 {
-if (tmp->n > tmp->next->n)
+swap = current;
+while (swap->prev && swap->n < swap->prev->n)
 {
-tmp->next->prev = tmp->prev;
-if (tmp->next->prev)
-tmp->prev->next = tmp->next;
+prv = swap->prev;
+if (swap->next)
+swap->next->prev = prv;
+if (prv->prev)
+prv->prev->next = swap;
 else
-*list = tmp->next;
+*list = swap;
+prv->next = swap->next;
+swap->prev = prv->prev;
+swap->next = prv;
+prv->prev = swap;
 
-tmp->prev = tmp->next;
-tmp->next = tmp->next->next;
-tmp->prev->next = tmp;
-if (tmp->next)
-tmp->next->prev = tmp;
-
-tmp = tmp->prev;
 print_list(*list);
-
-if (tmp->prev && tmp->prev->n > tmp->n)
-{
-if (!flag)
-aux = tmp->next;
-flag = true;
-tmp = tmp->prev;
-continue;
 }
-}
-if (!flag)
-tmp = tmp->next;
-else
-tmp = aux, flag = false;
 }
 }
