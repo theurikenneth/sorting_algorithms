@@ -37,4 +37,5 @@ out++;
 print_array(array, size);
 range = (range - 1) / 3;
 }
+
 }
